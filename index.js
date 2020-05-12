@@ -21,8 +21,20 @@ function getSong() {
           res.on('end', () => {
               if (playing != JSON.parse(data).data[0].song) {
                   playing = JSON.parse(data).data[0].song;
-                  console.log(playing)
-                  client.channels.cache.get(config.channel).send("Now playing on UTCR.Live: " + playing)
+                  const playingEmbed = new Discord.MessageEmbed()
+                    .setColor('#0099ff')
+                    .setTitle('Now Playing')
+                    .setURL('https://utcr.live/')
+                    .setAuthor('UTCR.Live', 'https://utcr.live/lib/res/favicon/apple-touch-icon.png', 'https://utcr.live/')
+                    .setDescription(JSON.parse(data).data[0].track.title)
+                    .setThumbnail(JSON.parse(data).data[0].track.imageurl)
+                    .addFields(
+                        { name: 'Author', value: JSON.parse(data).data[0].track.artist }
+                    )
+                    .setTimestamp()
+                    .setFooter('Tune in at UTCR.Live');
+                  //client.channels.cache.get(config.channel).send("Now playing on UTCR.Live: " + playing)
+                  client.channels.cache.get(config.channel).send(playingEmbed)
               };
           });
         

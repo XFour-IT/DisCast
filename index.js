@@ -33,7 +33,6 @@ function getSong() {
                     )
                     .setTimestamp()
                     .setFooter('Tune in at UTCR.Live');
-                  //client.channels.cache.get(config.channel).send("Now playing on UTCR.Live: " + playing)
                   client.channels.cache.get(config.channel).send(playingEmbed)
               };
           });
